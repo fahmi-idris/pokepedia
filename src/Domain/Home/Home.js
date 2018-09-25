@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Container, CardGroup, Row, Col } from 'reactstrap';
 
-import Header from '../../Application/Common/Header'
-import CardComponent from '../../Application/Common/Card'
+import Header from '../../Application/Common/Header';
+import CardComponent from '../../Application/Common/Card';
+import PaginationComponent from '../../Application/Common/Pagination';
+import Loading from '../../Application/Common/Loading';
 
 import { getAllPokemons } from './HomeActions';
 
@@ -13,9 +15,9 @@ class Home extends Component {
   }
 
   render() {
-    const { pokemons } = this.props
+    const { pokemons, prev, next } = this.props
     if(!pokemons){
-        return <div className="loading">Loading...</div>
+        return <Loading/>
     }
     return (
         <div>
@@ -30,6 +32,7 @@ class Home extends Component {
                       ))}
                   </Row>
               </CardGroup>
+              <PaginationComponent next={next} previous={prev}></PaginationComponent>
           </Container>
         </div>
     );
@@ -41,7 +44,9 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-  pokemons: state.HomeReducer.pokemonList
+  pokemons: state.HomeReducer.pokemonList,
+  next: state.HomeReducer.next,
+  prev: state.HomeReducer.prev
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

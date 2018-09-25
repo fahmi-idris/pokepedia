@@ -1,3 +1,1 @@
-export const getAllPokemons = () => ({
-  type: 'GET_ALL_POKEMONS'
-});
+export const getAllPokemons = () => ({ type: 'GET_ALL_POKEMONS' });
