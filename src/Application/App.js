@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
+import Home from '../Domain/Home/Home'
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-        <div>
-          Hello Word
-        </div>
+        <Home></Home>
     );
   }
 }
-
-export default App;
