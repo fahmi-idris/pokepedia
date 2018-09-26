@@ -16,15 +16,15 @@ export default class CardComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className="width-100">
         <Card>
-          <CardImg onClick={this.handleModal} className="c-pointer" top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+          <CardImg onClick={this.handleModal} className="c-pointer" top width="100%" src={this.props.detail.data.sprites.front_default} alt="Card image cap" />
           <CardBody>
             <CardTitle>{this.props.name}</CardTitle>
-            <CardSubtitle>Habitat</CardSubtitle>
+            <CardSubtitle>{this.props.species.data.habitat.name}</CardSubtitle>
           </CardBody>
         </Card>
-        <ModalComponent modal={this.state.modal} toggle={this.handleModal} />
+        <ModalComponent species={this.props.species.data} detail={this.props.detail.data} modal={this.state.modal} toggle={this.handleModal} />
       </div>
     );
   }

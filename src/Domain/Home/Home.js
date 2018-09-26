@@ -15,7 +15,7 @@ class Home extends Component {
   }
 
   render() {
-    const { pokemons, prev, next } = this.props
+    const { pokemons, prev, next, pokemonsDetail, pokemonSpecies } = this.props
     if(!pokemons){
         return <Loading/>
     }
@@ -25,9 +25,9 @@ class Home extends Component {
           <Container className="margin-top-25">
               <CardGroup>
                   <Row>
-                      {pokemons.map(items => (
+                      {pokemons.map((items, index) => (
                           <Col md="3" className="d-flex justify-content-center p-2" key={items.name}>
-                              <CardComponent {...items}></CardComponent>
+                              <CardComponent species={pokemonSpecies[index]} detail={pokemonsDetail[index]} {...items}></CardComponent>
                           </Col>
                       ))}
                   </Row>
@@ -45,6 +45,8 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   pokemons: state.HomeReducer.pokemonList,
+  pokemonsDetail: state.HomeReducer.pokemonDetail,
+  pokemonSpecies: state.HomeReducer.pokemonSpecies,
   next: state.HomeReducer.next,
   prev: state.HomeReducer.prev
 })
