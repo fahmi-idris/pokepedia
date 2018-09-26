@@ -3,7 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 're
 
 export default class ModalComponent extends Component {
     render() {
-        console.log(this.props)
         return (
             <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
                 <ModalHeader toggle={this.props.toggle}>
@@ -12,14 +11,16 @@ export default class ModalComponent extends Component {
                 <ModalBody>
                     <Row>
                         <Col md="12" className="modal-image-container">
-                            <img src={this.props.detail.sprites.front_default} className="modal-image"/>
+                            <img src={this.props.detail.sprites.front_default} className="modal-image" alt=""/>
                         </Col>
                     </Row>
                     <Row>
                         <Col md="12">
                             <h4>Description</h4>
                             <p>
-                                lorem ipsum dolor sit amet
+                              {this.props.species.egg_groups.map(item => (
+                                `${item.name} `
+                              ))}
                             </p>
                         </Col>
                     </Row>

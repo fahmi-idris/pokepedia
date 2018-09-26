@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { connect } from 'react-redux';
+import { getAllPokemons, paginate } from '../../Domain/Home/HomeActions';
 
 class PaginationComponent extends Component {
   constructor (props) {
@@ -10,13 +11,11 @@ class PaginationComponent extends Component {
   }
 
   previousPageTrigger () {
-    let prev = this.props.prev
-    this.props.onSetPage(null, prev);
+    paginate()
   }
 
   nextPageTrigger () {
-    let next = this.props.next
-    this.props.onSetPage(next, null);
+    paginate()
   }
 
   render() {
@@ -24,11 +23,11 @@ class PaginationComponent extends Component {
       <div>
         <Pagination aria-label="page navigation">
           <PaginationItem>
-              <PaginationLink previous onClick={this.nextPageTrigger}/>
+              <PaginationLink previous onClick={this.previousPageTrigger}/>
           </PaginationItem>
         
           <PaginationItem>
-              <PaginationLink next onClick={this.previousPageTrigger}/>
+              <PaginationLink next onClick={this.nextPageTrigger}/>
           </PaginationItem>
         </Pagination>
       </div>
@@ -36,12 +35,17 @@ class PaginationComponent extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onSetPage: (next, prev) => dispatch({
-    type: 'SET_PAGE',
-    nextPage: next,
-    previousPage: prev
-  })
-});
+const mapDispatchToProps = {
+  getAllPokemons: getAllPokemons,
+  paginate: paginate
+};
 
-export default connect(null, mapDispatchToProps)(PaginationComponent);
+const mapStateToProps = (state) => ({
+  pokemons: state.HomeReducer.pokemonList,
+  pokemonsDetail: state.HomeReducer.pokemonDetail,
+  pokemonSpecies: state.HomeReducer.pokemonSpecies,
+  next: state.HomeReducer.next,
+  prev: state.HomeReducer.prev
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaginationComponent);
